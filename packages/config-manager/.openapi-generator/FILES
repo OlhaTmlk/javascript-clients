@@ -1,9 +1,0 @@
-.gitignore
-.npmignore
-CreateProfile/index.ts
-GetProfile/index.ts
-api.ts
-git_push.sh
-index.ts
-index.ts
-types/index.ts

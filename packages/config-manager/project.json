@@ -4,20 +4,30 @@
   "sourceRoot": "packages/config-manager",
   "projectType": "library",
   "targets": {
+    "clean-generate": {
+      "command": "rm -rf packages/config-manager/src"
+    },
     "generate": {
+      "dependsOn": ["clean-generate"],
       "executor": "@redhat-cloud-services/build-utils:client-generator",
       "options": {
+        "outputPath": "packages/config-manager/src",
         "specs": {
           "default": "https://raw.githubusercontent.com/RedHatInsights/config-manager/master/internal/http/v2/openapi.json"
         },
         "clientName": "ConfigManagerClient"
       }
     },
+    "clean-build": {
+      "command": "rm -rf packages/config-manager/dist"
+    },
     "build": {
+      "dependsOn": ["clean-build", "^build"],
       "executor": "@redhat-cloud-services/build-utils:builder",
       "options": {
+        "inputPath": "packages/config-manager/src",
         "outputPath": "packages/config-manager/dist",
-        "main": "packages/config-manager/index.ts",
+        "main": "packages/config-manager/src/index.ts",
         "esmTsConfig": "packages/config-manager/tsconfig.esm.json",
         "cjsTsConfig": "packages/config-manager/tsconfig.cjs.json"
       }
