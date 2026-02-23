@@ -1,5 +1,6 @@
 .gitignore
 .npmignore
+.openapi-generator-ignore
 ServicesGet/index.ts
 api.ts
 git_push.sh

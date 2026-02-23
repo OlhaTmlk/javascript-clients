@@ -4,20 +4,30 @@
   "sourceRoot": "packages/entitlements",
   "projectType": "library",
   "targets": {
+    "clean-generate": {
+      "command": "rm -rf packages/entitlements/src"
+    },
     "generate": {
+      "dependsOn": ["clean-generate"],
       "executor": "@redhat-cloud-services/build-utils:client-generator",
       "options": {
+        "outputPath": "packages/entitlements/src",
         "specs": {
           "default": "https://raw.githubusercontent.com/RedHatInsights/entitlements-api/master/swagger/api.spec.json"
         },
         "clientName": "EntitlementsClient"
       }
     },
+    "clean-build": {
+      "command": "rm -rf packages/entitlements/dist"
+    },
     "build": {
+      "dependsOn": ["clean-build", "^build"],
       "executor": "@redhat-cloud-services/build-utils:builder",
       "options": {
+        "inputPath": "packages/entitlements/src",
         "outputPath": "packages/entitlements/dist",
-        "main": "packages/entitlements/index.ts",
+        "main": "packages/entitlements/src/index.ts",
         "esmTsConfig": "packages/entitlements/tsconfig.esm.json",
         "cjsTsConfig": "packages/entitlements/tsconfig.cjs.json"
       }
